@@ -1,24 +1,26 @@
-import React, { PureComponent } from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
+import { regEx } from '../utils/const';
 
-export default class Home extends PureComponent {
-  render() {
-    const { recipesHomeList } = this.props;
-    const recipesToShowInHome = recipesHomeList.map(({ recipe }) => (
-      <div key={recipe.uri}>
-        <Link to={`/recipe/${recipe.uri.match(/recipe.*/)}`}>
-          <img src={recipe.image} alt={recipe.label} />
+function Home(props) {
+  const { recipesHomeList } = props;
+  const recipesToShowInHome = recipesHomeList.map(
+    ({ recipe: { uri, image, label } }) => (
+      <div key={uri}>
+        <Link to={`/recipe/${uri.match(regEx)}`}>
+          <img src={image} alt={label} />
           <div>
-            <h3>{recipe.label}</h3>
+            <h3>{label}</h3>
           </div>
         </Link>
       </div>
-    ));
-    return (
-      <section>
-        <h2>Best lemon recipes</h2>
-        <div>{recipesToShowInHome}</div>
-      </section>
-    );
-  }
+    )
+  );
+  return (
+    <section>
+      <h2>Best lemon recipes</h2>
+      <div>{recipesToShowInHome}</div>
+    </section>
+  );
 }
+export default memo(Home);

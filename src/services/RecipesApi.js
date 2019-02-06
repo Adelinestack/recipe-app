@@ -4,7 +4,7 @@ import { API_KEY, API_ID } from './ApiUtils';
 const BASE_URL = 'https://api.edamam.com/';
 const BASE_FOR_SEARCH = `${BASE_URL}search?app_id=${API_ID}&app_key=${API_KEY}`;
 
-const getRecipe = () => axios.get(`${BASE_FOR_SEARCH}&q='lemon'`);
+export const getRecipe = () => axios.get(`${BASE_FOR_SEARCH}&q='lemon'`);
 
 async function getRecipesList() {
   const {

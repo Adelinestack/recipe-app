@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
 import { getRecipesDatasByKeyword } from '../services/RecipesApi';
 import { Link, withRouter } from 'react-router-dom';
+import { regEx } from '../utils/const';
 
-const incrementRecipesList = prevState => ({
+export const incrementRecipesList = prevState => ({
   from: prevState.from + 10,
   to: prevState.to + 10,
 });
@@ -54,9 +55,9 @@ class SearchBar extends PureComponent {
     const { searchedRecipes } = this.state;
     const searchResults = searchedRecipes.map(({ recipe: { uri, label } }) => (
       <Link
-        to={`/recipe/${uri.match(/recipe.*/)}`}
+        to={`/recipe/${uri.match(regEx)}`}
         key={uri}
-        onClick={this.onClick.bind(this, uri.match(/recipe.*/))}
+        onClick={this.onClick.bind(this, uri.match(regEx))}
       >
         <p>{label}</p>
       </Link>
